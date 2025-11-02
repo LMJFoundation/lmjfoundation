@@ -1,3 +1,6 @@
+import type { Metadata } from 'next'
+import './globals.css'
+
 export const metadata: Metadata = {
   title: "Lakshmishwar Manjula Jha Foundation",
   description:
@@ -33,5 +36,18 @@ export const metadata: Metadata = {
       "Transforming lives through education and community support — learn more about our mission and projects.",
     images: ["https://lakshmishwarmanjulajhafoundation.com/og-image.jpg"],
   },
-};
+}
 
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body>
+        {children}
+      </body>
+    </html>
+  )
+}
