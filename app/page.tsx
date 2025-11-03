@@ -6,11 +6,7 @@ import { useState, useEffect } from 'react';
 export default function Home() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState({ title: '', text: '' });
-
-  const handleNavigation = (path: string) => {
-    router.push(path);
-  };
+  const [modalContent, setModalContent] = useState({ title: '', text: '', type: '' });
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -19,13 +15,39 @@ export default function Home() {
     }
   };
 
-  const showModal = (title: string, text: string) => {
-    setModalContent({ title, text });
+  const showModal = (title: string, text: string, type: string = 'info') => {
+    setModalContent({ title, text, type });
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  // FIXED: Donate now goes to payment page
+  const handleDonate = () => {
+    // Replace with your actual payment links when ready
+    window.open('https://your-payment-link.com', '_blank');
+    closeModal();
+  };
+
+  // FIXED: Volunteer pre-fills the contact form
+  const handleVolunteerApply = () => {
+    const messageField = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
+    if (messageField) {
+      messageField.value = "I'm interested in volunteering for LMJ India Foundation. Please let me know about current opportunities.";
+      messageField.focus();
+      
+      // Visual highlight
+      messageField.style.borderColor = '#f97316';
+      messageField.style.boxShadow = '0 0 0 3px rgba(249, 115, 22, 0.1)';
+      setTimeout(() => {
+        messageField.style.borderColor = '';
+        messageField.style.boxShadow = '';
+      }, 2000);
+    }
+    
+    closeModal();
   };
 
   useEffect(() => {
@@ -52,16 +74,24 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center animate-float">
-                <span className="text-white font-bold text-sm">LMJ</span>
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center animate-float overflow-hidden">
+                <img 
+                  src="/logo.png" 
+                  alt="LMJ India Foundation Logo" 
+                  className="w-10 h-10 object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-sm">LMJ</span>';
+                  }}
+                />
               </div>
-              <span className="text-xl font-playfair font-bold text-gray-900">LMJ Foundation</span>
+              <span className="text-xl font-playfair font-bold text-gray-900">LMJ India Foundation</span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
               <button onClick={() => scrollToSection('about')} className="text-gray-700 hover:text-purple-600 transition">About</button>
               <button onClick={() => scrollToSection('programs')} className="text-gray-700 hover:text-purple-600 transition">Programs</button>
               <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-purple-600 transition">Impact</button>
-              <button onClick={() => showModal('Donate', 'Your donation helps empower communities across India.')} className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition">Donate</button>
+              <button onClick={() => showModal('Donate', 'Your donation helps empower communities across India. Every contribution makes a difference.', 'donate')} className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition">Donate</button>
             </div>
           </div>
         </div>
@@ -132,7 +162,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-lg text-gray-700 leading-relaxed fade-in opacity-0 translate-y-8">
               <p>
-                The <strong className="text-purple-600">LMJ Foundation</strong> is a pan-India nonprofit
+                The <strong className="text-purple-600">LMJ India Foundation</strong> is a pan-India nonprofit
                 organization committed to advancing equity, opportunity,
                 healthcare, livelihood, and sustainable development across
                 communities.
@@ -212,7 +242,7 @@ export default function Home() {
                 <h3 className="font-playfair text-3xl font-bold text-gray-900">Our Mission</h3>
               </div>
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                LMJ Foundation works across India to promote{" "}
+                LMJ India Foundation works across India to promote{" "}
                 <strong className="text-orange-600">social entrepreneurship</strong>, <strong className="text-orange-600">women&apos;s empowerment</strong>,{" "}
                 <strong className="text-orange-600">education</strong>, <strong className="text-orange-600">healthcare</strong>,{" "}
                 <strong className="text-orange-600">livelihood</strong>, <strong className="text-orange-600">culture preservation</strong>, and{" "}
@@ -221,7 +251,7 @@ export default function Home() {
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}
-                onClick={() => scrollToSection('programs')}
+                onClick={() => router.push('/gallery')}
                 className="bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600 transition hover-lift"
               >
                 Explore Our Journey →
@@ -334,7 +364,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Founder's Message */}
+      {/* Founder's Message - UPDATED with larger image */}
       <section className="py-20 bg-gradient-to-br from-gray-900 to-purple-900 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div
@@ -345,13 +375,23 @@ export default function Home() {
             <h2 className="font-playfair text-4xl lg:text-5xl font-bold mb-8">Founder&apos;s Message</h2>
             
             <div className="flex justify-center mb-8">
-              <div className="w-20 h-20 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
-                <span className="text-white text-2xl font-bold">LMJ</span>
+              {/* Updated Founder Image - Larger and more prominent */}
+              <div className="w-48 h-48 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-2xl">
+                <img 
+                  src="/founder.jpg" 
+                  alt="Vandana Jha - Founder" 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Fallback if founder image not found
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement!.innerHTML = '<span class="text-white text-4xl font-bold">VJ</span>';
+                  }}
+                />
               </div>
             </div>
             
             <blockquote className="text-2xl italic text-orange-300 leading-relaxed mb-8 border-l-4 border-orange-400 pl-6 mx-auto max-w-3xl">
-              &ldquo;It gives me immense joy to welcome you to LMJ Foundation — an endeavor born out of love, gratitude, and a deep commitment to uplift those who deserve equal opportunity and wellbeing.&rdquo;
+              &ldquo;It gives me immense joy to welcome you to LMJ India Foundation — an endeavor born out of love, gratitude, and a deep commitment to uplift those who deserve equal opportunity and wellbeing.&rdquo;
             </blockquote>
 
             <div className="space-y-4 text-lg text-gray-300 leading-relaxed mb-8 max-w-3xl mx-auto">
@@ -376,7 +416,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Call to Action */}
+      {/* Call to Action - REMOVED Partner With Us */}
       <section id="contact" className="py-20 bg-gradient-to-br from-green-600 to-green-700 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div
@@ -393,7 +433,7 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => showModal('Donate Now', 'Your donation helps us empower communities across India. Every contribution makes a difference.')}
+                onClick={() => showModal('Donate Now', 'Your donation helps us empower communities across India. Every contribution makes a difference.', 'donate')}
                 className="bg-white text-green-700 font-semibold px-8 py-4 rounded-full hover:bg-gray-100 transition hover-lift min-w-[180px]"
               >
                 Donate Now
@@ -401,21 +441,84 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => showModal('Volunteer', 'Join our team of dedicated volunteers and make a direct impact in communities across India.')}
+                onClick={() => showModal('Volunteer', 'Join our team of dedicated volunteers and make a direct impact in communities across India.', 'volunteer')}
                 className="bg-orange-500 text-white font-semibold px-8 py-4 rounded-full hover:bg-orange-400 transition hover-lift min-w-[180px]"
               >
                 Volunteer
               </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => showModal('Partner With Us', 'Lets collaborate to create sustainable change. Partner with LMJ Foundation for greater impact.')}
-                className="border-2 border-white text-white font-semibold px-8 py-4 rounded-full hover:bg-white hover:text-green-700 transition hover-lift min-w-[180px]"
-              >
-                Partner With Us
-              </motion.button>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Contact Information Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12">
+            <div className="fade-in opacity-0 translate-y-8">
+              <h2 className="font-playfair text-4xl font-bold text-gray-900 mb-6">Get In Touch</h2>
+              <div className="space-y-4 text-lg text-gray-700">
+                <div className="flex items-center space-x-4">
+                  <span className="text-2xl">📧</span>
+                  <div>
+                    <p className="font-semibold">Email</p>
+                    <p>contact@lmjindiafoundation.org</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <span className="text-2xl">📞</span>
+                  <div>
+                    <p className="font-semibold">Phone</p>
+                    <p>+91-9876543210</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <span className="text-2xl">📍</span>
+                  <div>
+                    <p className="font-semibold">Address</p>
+                    <p>LMJ India Foundation<br />123 Social Impact Street<br />New Delhi, India 110001</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="fade-in opacity-0 translate-y-8">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h3>
+              <form 
+                action="https://formspree.io/f/xanlzgyw" 
+                method="POST"
+                className="space-y-4"
+              >
+                <input 
+                  type="text" 
+                  name="name"
+                  placeholder="Your Name" 
+                  required
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                />
+                <input 
+                  type="email" 
+                  name="email"
+                  placeholder="Your Email" 
+                  required
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                />
+                <textarea 
+                  name="message"
+                  placeholder="Your Message" 
+                  rows={4}
+                  required
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                ></textarea>
+                <button 
+                  type="submit"
+                  className="bg-purple-600 text-white px-8 py-4 rounded-lg hover:bg-purple-700 transition w-full"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -423,38 +526,31 @@ export default function Home() {
       <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <div className="flex items-center justify-center mb-8 fade-in opacity-0 translate-y-8">
-            <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mr-4 animate-float">
-              <span className="text-white font-bold text-lg">LMJ</span>
+            <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mr-4 animate-float overflow-hidden">
+              <img 
+                src="/logo.png" 
+                alt="LMJ India Foundation Logo" 
+                className="w-14 h-14 object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-lg">LMJ</span>';
+                }}
+              />
             </div>
-            <span className="text-2xl font-playfair font-bold">LMJ Foundation</span>
+            <span className="text-2xl font-playfair font-bold">LMJ India Foundation</span>
           </div>
           
           <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto fade-in opacity-0 translate-y-8">
             Together, We Can Shape a Sustainable Future. Every contribution helps transform lives and preserve our shared heritage.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 fade-in opacity-0 translate-y-8">
-            <button 
-              onClick={() => showModal('Make a Difference', 'Your support helps us continue our mission of empowering communities across India.')}
-              className="bg-purple-600 text-white px-8 py-4 rounded-full hover:bg-purple-700 transition hover-lift"
-            >
-              Make a Difference
-            </button>
-            <button 
-              onClick={() => showModal('Join Our Team', 'Become part of our volunteer network and create meaningful change.')}
-              className="border-2 border-gray-600 text-white px-8 py-4 rounded-full hover:bg-white hover:text-gray-900 transition hover-lift"
-            >
-              Join Our Team
-            </button>
-          </div>
-          
           <div className="border-t border-gray-800 pt-8 fade-in opacity-0 translate-y-8">
-            <p className="text-gray-500">&copy; 2025 LMJ Foundation. All rights reserved. | Empowering Communities Across India</p>
+            <p className="text-gray-500">&copy; LMJ India Foundation. All rights reserved. | Empowering Communities Across India</p>
           </div>
         </div>
       </footer>
 
-      {/* Modal */}
+      {/* Modal - REMOVED Partner option */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={closeModal}>
           <div className="bg-white rounded-2xl p-8 max-w-md w-full" onClick={(e) => e.stopPropagation()}>
@@ -462,7 +558,15 @@ export default function Home() {
             <p className="text-gray-600 mb-6">{modalContent.text}</p>
             <div className="flex gap-4">
               <button onClick={closeModal} className="flex-1 bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600 transition">Close</button>
-              <button onClick={closeModal} className="flex-1 bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition">Learn More</button>
+              {modalContent.type === 'donate' && (
+                <button onClick={handleDonate} className="flex-1 bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition">Donate Now</button>
+              )}
+              {modalContent.type === 'volunteer' && (
+                <button onClick={handleVolunteerApply} className="flex-1 bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition">Apply Now</button>
+              )}
+              {modalContent.type === 'info' && (
+                <button onClick={closeModal} className="flex-1 bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition">Learn More</button>
+              )}
             </div>
           </div>
         </div>
