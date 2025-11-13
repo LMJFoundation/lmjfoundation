@@ -526,17 +526,17 @@ export default function Home() {
       <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <div className="flex items-center justify-center mb-8 fade-in opacity-0 translate-y-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mr-4 animate-float overflow-hidden">
-              <img 
-                src="/logo.png" 
-                alt="LMJ India Foundation Logo" 
-                className="w-14 h-14 object-contain"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-lg">LMJ</span>';
-                }}
-              />
-            </div>
+            <div className="w-18 h-18 rounded-2xl flex items-center justify-center mr-4 animate-float overflow-hidden">
+  <img 
+    src="/logo.png" 
+    alt="LMJ India Foundation Logo" 
+    className="w-full h-full object-contain"  // ← CHANGE TO object-contain
+    onError={(e) => {
+      e.currentTarget.style.display = 'none';
+      e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-lg">LMJ</span>';
+    }}
+  />
+</div>
             <span className="text-2xl font-playfair font-bold">LMJ India Foundation</span>
           </div>
           
