@@ -168,10 +168,10 @@ export default function Home() {
                 communities.
               </p>
               <p>
-                Founded in honor of the founder&apos;s parents—whose lives embodied
-                compassion and service—LMJ draws inspiration from their values to
-                guide every aspect of its work.
-              </p>
+  Founded in honor of <strong>Lakshmishwar Jha</strong> and <strong>Manjula Jha</strong>—the founder's parents whose lives embodied
+  compassion and service—LMJ draws inspiration from their values to
+  guide every aspect of its work.
+</p>
               <p>
                 We believe true social transformation begins with empowerment:
                 equipping individuals with the tools, resources, and knowledge to
@@ -462,21 +462,21 @@ export default function Home() {
                   <span className="text-2xl">📧</span>
                   <div>
                     <p className="font-semibold">Email</p>
-                    <p>contact@lmjindiafoundation.org</p>
+                    <p>vandana.jha@lmjindia.com</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
                   <span className="text-2xl">📞</span>
                   <div>
                     <p className="font-semibold">Phone</p>
-                    <p>+91-9876543210</p>
+                    <p>+91-9999106050</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
                   <span className="text-2xl">📍</span>
                   <div>
                     <p className="font-semibold">Address</p>
-                    <p>LMJ India Foundation<br />123 Social Impact Street<br />New Delhi, India 110001</p>
+                    <p>LMJ India Foundation<br />A 120 Defence Colony<br />New Delhi, India 110024</p>
                   </div>
                 </div>
               </div>
