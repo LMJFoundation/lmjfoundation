@@ -74,7 +74,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 rounded-lg flex items-center justify-center animate-float overflow-hidden">
+              <div className="w-16 h-16 rounded-lg flex items-center justify-center animate-float overflow-hidden">
   <img
     src="/logo.png"
     alt="LMJ India Foundation Logo"
