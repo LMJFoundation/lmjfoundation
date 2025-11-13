@@ -380,7 +380,7 @@ export default function Home() {
                 <img 
                   src="/founder.jpg" 
                   alt="Vandana Jha - Founder" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   onError={(e) => {
                     // Fallback if founder image not found
                     e.currentTarget.style.display = 'none';
