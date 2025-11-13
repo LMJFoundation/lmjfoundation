@@ -74,14 +74,14 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center animate-float overflow-hidden">
-  <img
-    src="/logo.png"
-    alt="LMJ India Foundation Logo"
-    className="w-10 h-10 object-contain"
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mr-4 animate-float overflow-hidden">
+  <img 
+    src="/logo.png" 
+    alt="LMJ India Foundation Logo" 
+    className="w-full h-full object-cover"
     onError={(e) => {
       e.currentTarget.style.display = 'none';
-      e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-sm">LMJ</span>';
+      e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-lg">LMJ</span>';
     }}
   />
 </div>
