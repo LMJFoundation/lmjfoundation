@@ -376,8 +376,8 @@ export default function Home() {
             
             <div className="flex justify-center mb-8">
               {/* Updated Founder Image - Larger and more prominent */}
-              <div className="w-48 h-48 rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-2xl">
-                <img 
+              <div className="w-48 h-48 bg-white rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-2xl">
+                  <img 
                   src="/founder.jpg" 
                   alt="Vandana Jha - Founder" 
                   className="w-full h-full object-contain"
