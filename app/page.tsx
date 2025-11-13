@@ -526,7 +526,7 @@ export default function Home() {
       <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <div className="flex items-center justify-center mb-8 fade-in opacity-0 translate-y-8">
-            <div className="w-18 h-18 rounded-2xl flex items-center justify-center mr-4 animate-float overflow-hidden">
+            <div className="w-18 h-18 rounded-lg flex items-center justify-center mr-4 animate-float overflow-hidden">
   <img 
     src="/logo.png" 
     alt="LMJ India Foundation Logo" 
