@@ -7,6 +7,15 @@ export default function Home() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState({ title: '', text: '', type: '' });
+  const [isMemberModalOpen, setIsMemberModalOpen] = useState(false);
+  const [memberForm, setMemberForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    profession: '',
+    location: '',
+    message: ''
+  });
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -24,21 +33,17 @@ export default function Home() {
     setIsModalOpen(false);
   };
 
-  // FIXED: Donate now goes to payment page
   const handleDonate = () => {
-    // Replace with your actual payment links when ready
     window.open('https://your-payment-link.com', '_blank');
     closeModal();
   };
 
-  // FIXED: Volunteer pre-fills the contact form
   const handleVolunteerApply = () => {
     const messageField = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
     if (messageField) {
       messageField.value = "I'm interested in volunteering for LMJ India Foundation. Please let me know about current opportunities.";
       messageField.focus();
       
-      // Visual highlight
       messageField.style.borderColor = '#f97316';
       messageField.style.boxShadow = '0 0 0 3px rgba(249, 115, 22, 0.1)';
       setTimeout(() => {
@@ -48,6 +53,58 @@ export default function Home() {
     }
     
     closeModal();
+  };
+
+  const handleMemberApply = () => {
+    setIsMemberModalOpen(true);
+    closeModal();
+  };
+
+  const closeMemberModal = () => {
+    setIsMemberModalOpen(false);
+    setMemberForm({
+      name: '',
+      email: '',
+      phone: '',
+      profession: '',
+      location: '',
+      message: ''
+    });
+  };
+
+  const handleMemberFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setMemberForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const submitMemberForm = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    try {
+      const response = await fetch('https://formspree.io/f/xanlzgyw', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...memberForm,
+          subject: 'New Membership Application - LMJ India Foundation',
+          type: 'membership'
+        }),
+      });
+
+      if (response.ok) {
+        alert('Thank you for your membership application! We will review it and get back to you soon.');
+        closeMemberModal();
+      } else {
+        alert('There was an error submitting your application. Please try again or contact us directly.');
+      }
+    } catch (error) {
+      alert('There was an error submitting your application. Please try again or contact us directly.');
+    }
   };
 
   useEffect(() => {
@@ -69,22 +126,21 @@ export default function Home() {
 
   return (
     <div className="font-inter bg-white text-gray-800">
-      {/* Navigation */}
       <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-16 h-16 rounded-lg flex items-center justify-center animate-float overflow-hidden">
-  <img
-    src="/logo.png"
-    alt="LMJ India Foundation Logo"
-    className="w-full h-full object-contain"  // ← CHANGE TO object-contain
-    onError={(e) => {
-      e.currentTarget.style.display = 'none';
-      e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-sm">LMJ</span>';
-    }}
-  />
-</div>
+                <img
+                  src="/logo.png"
+                  alt="LMJ India Foundation Logo"
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-sm">LMJ</span>';
+                  }}
+                />
+              </div>
               <span className="text-xl font-playfair font-bold text-gray-900">LMJ India Foundation</span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
@@ -97,7 +153,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <section className="min-h-screen bg-gradient-to-br from-blue-900 to-purple-800 text-white pt-20">
         <div className="max-w-7xl mx-auto px-6 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -151,7 +206,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Who We Are */}
       <section id="about" className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16 fade-in opacity-0 translate-y-8">
@@ -168,7 +222,7 @@ export default function Home() {
                 communities.
               </p>
               <p>
-  Founded in honor of <strong>Lakshmishwar Jha</strong> and <strong>Manjula Jha</strong>—the founder's parents whose lives embodied
+  Founded in honor of <strong>Lakshmishwar Jha</strong> and <strong>Manjula Jha</strong>—the founder&apos;s parents whose lives embodied
   compassion and service—LMJ draws inspiration from their values to
   guide every aspect of its work.
 </p>
@@ -205,11 +259,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Vision & Mission */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-8">
-            {/* Vision Card */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -228,7 +280,6 @@ export default function Home() {
               </blockquote>
             </motion.div>
 
-            {/* Mission Card */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -261,7 +312,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* What We Do */}
       <section id="programs" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 fade-in opacity-0 translate-y-8">
@@ -329,7 +379,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How We Work */}
       <section className="py-20 bg-gradient-to-br from-blue-900 to-purple-800 text-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16 fade-in opacity-0 translate-y-8">
@@ -364,7 +413,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Founder's Message - UPDATED with larger image */}
       <section className="py-20 bg-gradient-to-br from-gray-900 to-purple-900 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div
@@ -375,14 +423,12 @@ export default function Home() {
             <h2 className="font-playfair text-4xl lg:text-5xl font-bold mb-8">Founder&apos;s Message</h2>
             
             <div className="flex justify-center mb-8">
-              {/* Updated Founder Image - Larger and more prominent */}
               <div className="w-48 h-48 bg-white rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-2xl">
                   <img 
                   src="/founder.jpg" 
                   alt="Vandana Jha - Founder" 
                   className="w-full h-full object-contain"
                   onError={(e) => {
-                    // Fallback if founder image not found
                     e.currentTarget.style.display = 'none';
                     e.currentTarget.parentElement!.innerHTML = '<span class="text-white text-4xl font-bold">VJ</span>';
                   }}
@@ -416,7 +462,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Call to Action - REMOVED Partner With Us */}
       <section id="contact" className="py-20 bg-gradient-to-br from-green-600 to-green-700 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div
@@ -429,7 +474,7 @@ export default function Home() {
               Every contribution — time, skill, or donation — helps transform lives and preserve our shared heritage.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -438,6 +483,16 @@ export default function Home() {
               >
                 Donate Now
               </motion.button>
+              
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => showModal('Become a Member', 'Join LMJ India Foundation as a member and be part of our growing community of changemakers. Your membership supports our initiatives and gives you exclusive updates.', 'member')}
+                className="bg-gradient-to-r from-amber-500 to-yellow-600 text-white font-semibold px-8 py-4 rounded-full hover:from-amber-600 hover:to-yellow-700 transition hover-lift min-w-[180px] shadow-lg"
+              >
+                Become a Member
+              </motion.button>
+              
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -451,7 +506,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact Information Section */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12">
@@ -522,21 +576,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <div className="flex items-center justify-center mb-8 fade-in opacity-0 translate-y-8">
             <div className="w-18 h-18 rounded-lg flex items-center justify-center mr-4 animate-float overflow-hidden">
-  <img 
-    src="/logo.png" 
-    alt="LMJ India Foundation Logo" 
-    className="w-full h-full object-contain"  // ← CHANGE TO object-contain
-    onError={(e) => {
-      e.currentTarget.style.display = 'none';
-      e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-lg">LMJ</span>';
-    }}
-  />
-</div>
+              <img 
+                src="/logo.png" 
+                alt="LMJ India Foundation Logo" 
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-lg">LMJ</span>';
+                }}
+              />
+            </div>
             <span className="text-2xl font-playfair font-bold">LMJ India Foundation</span>
           </div>
           
@@ -550,7 +603,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Modal - REMOVED Partner option */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={closeModal}>
           <div className="bg-white rounded-2xl p-8 max-w-md w-full" onClick={(e) => e.stopPropagation()}>
@@ -564,6 +616,9 @@ export default function Home() {
               {modalContent.type === 'volunteer' && (
                 <button onClick={handleVolunteerApply} className="flex-1 bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition">Apply Now</button>
               )}
+              {modalContent.type === 'member' && (
+                <button onClick={handleMemberApply} className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-600 text-white py-3 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition">Apply for Membership</button>
+              )}
               {modalContent.type === 'info' && (
                 <button onClick={closeModal} className="flex-1 bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition">Learn More</button>
               )}
@@ -572,10 +627,113 @@ export default function Home() {
         </div>
       )}
 
+      {isMemberModalOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={closeMemberModal}>
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Become a Member</h3>
+            <p className="text-gray-600 mb-6">Join our community of changemakers. Fill out the form below and we'll get back to you soon.</p>
+            
+            <form onSubmit={submitMemberForm} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+                <input 
+                  type="text" 
+                  name="name"
+                  value={memberForm.name}
+                  onChange={handleMemberFormChange}
+                  required
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  placeholder="Enter your full name"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
+                <input 
+                  type="email" 
+                  name="email"
+                  value={memberForm.email}
+                  onChange={handleMemberFormChange}
+                  required
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  placeholder="Enter your email"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
+                <input 
+                  type="tel" 
+                  name="phone"
+                  value={memberForm.phone}
+                  onChange={handleMemberFormChange}
+                  required
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Profession</label>
+                <input 
+                  type="text" 
+                  name="profession"
+                  value={memberForm.profession}
+                  onChange={handleMemberFormChange}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  placeholder="What do you do?"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                <input 
+                  type="text" 
+                  name="location"
+                  value={memberForm.location}
+                  onChange={handleMemberFormChange}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  placeholder="Where are you located?"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Why do you want to become a member? *</label>
+                <textarea 
+                  name="message"
+                  value={memberForm.message}
+                  onChange={handleMemberFormChange}
+                  required
+                  rows={4}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  placeholder="Tell us about your motivation to join LMJ India Foundation..."
+                />
+              </div>
+              
+              <div className="flex gap-4 pt-4">
+                <button 
+                  type="button"
+                  onClick={closeMemberModal}
+                  className="flex-1 bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600 transition"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit"
+                  className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-600 text-white py-3 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition"
+                >
+                  Submit Application
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap');
         
-        .font-playfair { font-family: 'Playfair Display', serif; }
+                .font-playfair { font-family: 'Playfair Display', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
         
         .hover-lift { transition: all 0.3s ease; }
