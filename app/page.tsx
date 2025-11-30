@@ -222,7 +222,7 @@ export default function Home() {
                 communities.
               </p>
               <p>
-  Founded in honor of <strong>Lakshmishwar Jha</strong> and <strong>Manjula Jha</strong>—the founder&apos;s parents whose lives embodied
+  Founded in honor of <strong>Lakshmishwar Jha</strong> and <strong>Manjula Jha</strong>-the founder's parents whose lives embodied
   compassion and service—LMJ draws inspiration from their values to
   guide every aspect of its work.
 </p>
