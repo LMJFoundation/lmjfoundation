@@ -222,8 +222,8 @@ export default function Home() {
                 communities.
               </p>
               <p>
-  Founded in honor of <strong>Lakshmishwar Jha</strong> and <strong>Manjula Jha</strong>-the founder's parents whose lives embodied
-  compassion and service—LMJ draws inspiration from their values to
+  Founded in honor of <strong>Lakshmishwar Jha</strong> and <strong>Manjula Jha</strong>- the founder's parents whose lives embodied
+  compassion and service-LMJ draws inspiration from their values to
   guide every aspect of its work.
 </p>
               <p>
@@ -294,7 +294,7 @@ export default function Home() {
               </div>
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
                 LMJ India Foundation works across India to promote{" "}
-                <strong className="text-orange-600">social entrepreneurship</strong>, <strong className="text-orange-600">women&apos;s empowerment</strong>,{" "}
+                <strong className="text-orange-600">social entrepreneurship</strong>, <strong className="text-orange-600">women's empowerment</strong>,{" "}
                 <strong className="text-orange-600">education</strong>, <strong className="text-orange-600">healthcare</strong>,{" "}
                 <strong className="text-orange-600">livelihood</strong>, <strong className="text-orange-600">culture preservation</strong>, and{" "}
                 <strong className="text-orange-600">environmental awareness</strong> — building resilient,
@@ -420,7 +420,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             className="fade-in opacity-0 translate-y-8"
           >
-            <h2 className="font-playfair text-4xl lg:text-5xl font-bold mb-8">Founder&apos;s Message</h2>
+            <h2 className="font-playfair text-4xl lg:text-5xl font-bold mb-8">Founder's Message</h2>
             
             <div className="flex justify-center mb-8">
               <div className="w-48 h-48 bg-white rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-2xl">
