@@ -147,7 +147,7 @@ export default function Home() {
               <button onClick={() => scrollToSection('about')} className="text-gray-700 hover:text-purple-600 transition">About</button>
               <button onClick={() => scrollToSection('programs')} className="text-gray-700 hover:text-purple-600 transition">Programs</button>
               <button onClick={() => scrollToSection('founder')} className="text-gray-700 hover:text-purple-600 transition">Founder</button>
-              <button onClick={() => scrollToSection('patron')} className="text-gray-700 hover:text-purple-600 transition">Patron</button>
+              <button onClick={() => scrollToSection('patrons')} className="text-gray-700 hover:text-purple-600 transition">Patrons</button>
               <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-purple-600 transition">Impact</button>
               <button onClick={() => showModal('Donate', 'Your donation helps empower communities across India. Every contribution makes a difference.', 'donate')} className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition">Donate</button>
             </div>
@@ -374,7 +374,7 @@ export default function Home() {
                   <div className="text-3xl">🎓</div>
                   <div>
                     <p className="font-semibold text-orange-300">Fulbright Scholar</p>
-                    <p className="text-sm text-gray-300">Over two decades in education & social impact</p>
+                    <p className="text-sm text-gray-300">over two decades in education & social impact</p>
                   </div>
                 </div>
                 
@@ -391,91 +391,89 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="patron" className="py-20 bg-white">
+      <section id="patrons" className="py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16 fade-in opacity-0 translate-y-8">
-            <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Our Patron</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-green-500 mx-auto"></div>
+            <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Our Patrons</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-orange-500 mx-auto"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-4">Guiding our mission with wisdom and experience</p>
           </div>
           
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* First Patron - VN Dalmia */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              className="fade-in opacity-0 translate-y-8"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="bg-white rounded-3xl shadow-xl p-8 hover-lift border border-gray-100 fade-in opacity-0 translate-y-8"
             >
-              <div className="flex justify-center mb-8">
-                <div className="w-72 h-72 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center overflow-hidden border-4 border-gray-100 shadow-2xl">
-                  <img 
-                    src="/patron.jpg" 
-                    alt="Vidyanidhi Dalmia - Patron" 
-                    className="w-full h-full object-contain"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      e.currentTarget.parentElement!.innerHTML = '<span class="text-white text-4xl font-bold">VD</span>';
-                    }}
-                  />
+              <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="flex-shrink-0">
+                  <div className="w-48 h-48 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center overflow-hidden border-4 border-gray-100 shadow-lg mx-auto">
+                    <img 
+                      src="/patron.jpg" 
+                      alt="Vidyanidhi Dalmia - Patron" 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.parentElement!.innerHTML = '<span class="text-white text-3xl font-bold">VD</span>';
+                      }}
+                    />
+                  </div>
+                </div>
+                
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Vidyanidhi Dalmia</h3>
+                  <p className="text-lg text-purple-600 mb-4">(aka VN Dalmia)</p>
+                  <p className="text-lg font-semibold text-gray-900 mb-4">Chairman, Dalmia Continental | Knight Commander</p>
+                  
+                  <div className="space-y-3">
+                    <p className="text-gray-700">
+                      Chairman of Dalmia Continental (DC) and formerly led other Dalmia companies in cement, biscuits, tourism, and more. At DC, he introduced olive oil to India and later divested its leading brands, Leonardo (to Cargill in 2014) and Hudson (to Bunge in 2018).
+                    </p>
+                    <p className="text-gray-700">
+                      He currently serves as an Independent Director and Advisor to several firms. A recipient of an Italian knighthood in the rank of Knight Commander, VN holds an MBA from the University of Virginia's Darden School of Business, where he also served on its Board of Trustees.
+                    </p>
+                    <p className="text-gray-700">
+                      He is the Founder President of the Indian Olive Association and passionate about music, art, photography, reading and fitness.
+                    </p>
+                  </div>
                 </div>
               </div>
-              
-              <h3 className="text-3xl font-bold text-gray-900 mb-2 text-center">Vidyanidhi Dalmia</h3>
-              <p className="text-xl text-purple-600 text-center mb-4">(aka VN Dalmia)</p>
-              <p className="text-lg text-gray-600 text-center">Chairman, Dalmia Continental | Knight Commander</p>
             </motion.div>
-            
+
+            {/* Second Patron - Prakash Chandra Jha WITH EXACT MESSAGE */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="fade-in opacity-0 translate-y-8"
+              className="bg-white rounded-3xl shadow-xl p-8 hover-lift border border-gray-100 fade-in opacity-0 translate-y-8"
             >
-              <div className="space-y-6 text-gray-700 leading-relaxed">
-                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 border border-gray-200 shadow-lg">
-                  <p className="mb-4">
-                    <strong>Vidyanidhi Dalmia (aka VN Dalmia)</strong> is the Chairman of Dalmia Continental (DC) and formerly led other Dalmia companies in cement, biscuits, tourism, and more.
-                  </p>
-                  <p className="mb-4">
-                    At DC, he introduced olive oil to India and later divested its leading brands, Leonardo (to Cargill in 2014) and Hudson (to Bunge in 2018).
-                  </p>
-                  <p className="mb-4">
-                    He currently serves as an Independent Director and Advisor to several firms. A recipient of an Italian knighthood in the rank of Knight Commander, VN holds an MBA from the University of Virginia's Darden School of Business, where he also served on its Board of Trustees.
-                  </p>
-                  <p>
-                    He is the Founder President of the Indian Olive Association and passionate about music, art, photography, reading and fitness.
-                  </p>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-gray-50 rounded-xl p-4 text-center">
-                    <div className="text-2xl mb-2">👑</div>
-                    <p className="font-semibold text-gray-900">Knight Commander</p>
-                    <p className="text-sm text-gray-600">Italian Knighthood</p>
-                  </div>
-                  
-                  <div className="bg-gray-50 rounded-xl p-4 text-center">
-                    <div className="text-2xl mb-2">🎓</div>
-                    <p className="font-semibold text-gray-900">Darden MBA</p>
-                    <p className="text-sm text-gray-600">University of Virginia</p>
-                  </div>
-                  
-                  <div className="bg-gray-50 rounded-xl p-4 text-center">
-                    <div className="text-2xl mb-2">🏢</div>
-                    <p className="font-semibold text-gray-900">Chairman</p>
-                    <p className="text-sm text-gray-600">Dalmia Continental</p>
-                  </div>
-                  
-                  <div className="bg-gray-50 rounded-xl p-4 text-center">
-                    <div className="text-2xl mb-2">🎨</div>
-                    <p className="font-semibold text-gray-900">Passionate About</p>
-                    <p className="text-sm text-gray-600">Arts, Music, Photography</p>
+              <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="flex-shrink-0">
+                  <div className="w-48 h-48 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center overflow-hidden border-4 border-gray-100 shadow-lg mx-auto">
+                    <img 
+                      src="/prakash-jha.jpg" 
+                      alt="Prakash Chandra Jha - Patron" 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.parentElement!.innerHTML = '<span class="text-white text-3xl font-bold">PJ</span>';
+                      }}
+                    />
                   </div>
                 </div>
                 
-                <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl p-4">
-                  <p className="text-center font-semibold">
-                    "We are honored to have VN Dalmia as our Patron, guiding our foundation with his visionary leadership and extensive business experience."
-                  </p>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Prakash Chandra Jha</h3>
+                  <p className="text-lg text-purple-600 mb-4">Former Chairman, CBIC | Advisor, FICCI</p>
+                  
+                  <div className="space-y-4 text-gray-700">
+                    <div className="bg-purple-50 rounded-xl p-4">
+                      <p className="text-gray-800 leading-relaxed">
+                        I am Prakash Chandra Jha from Madhubani, Bihar, former Chairman of the Central Board of Indirect Taxes & Customs, and currently Advisor at FICCI. I had the privilege of knowing Pandit Shri Lakshmeeshwar Jha for nearly four decades. I was always deeply impressed by his profound knowledge of the Vedas and timeless wisdom in our ancient scriptures. His contributions to the correct interpretation of the Vedas, including his books in Hindi to share our heritage with the masses, are invaluable—especially today, as we draw inspiration from our past for national development. His absence leaves a personal void, and I pray for eternal peace for his noble soul.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -722,13 +720,13 @@ export default function Home() {
           <div className="flex flex-wrap justify-center gap-8 mb-8 fade-in opacity-0 translate-y-8">
             <button onClick={() => scrollToSection('about')} className="text-gray-400 hover:text-white transition">About</button>
             <button onClick={() => scrollToSection('founder')} className="text-gray-400 hover:text-white transition">Founder</button>
-            <button onClick={() => scrollToSection('patron')} className="text-gray-400 hover:text-white transition">Patron</button>
+            <button onClick={() => scrollToSection('patrons')} className="text-gray-400 hover:text-white transition">Patrons</button>
             <button onClick={() => scrollToSection('programs')} className="text-gray-400 hover:text-white transition">Programs</button>
             <button onClick={() => scrollToSection('contact')} className="text-gray-400 hover:text-white transition">Contact</button>
           </div>
           
           <div className="border-t border-gray-800 pt-8 fade-in opacity-0 translate-y-8">
-            <p className="text-gray-500">&copy;LMJ India Foundation. All rights reserved. | Empowering Communities Across India</p>
+            <p className="text-gray-500">&copy; LMJ India Foundation. All rights reserved. | Empowering Communities Across India</p>
           </div>
         </div>
       </footer>
