@@ -361,7 +361,7 @@ export default function Home() {
                     <strong className="text-orange-300">A Fulbright scholar and lifelong torchbearer of learning,</strong>
                   </p>
                   <p className="mb-4">
-                    With 28 years devoted to education, leadership, and social impact,
+                    With over two decades devoted to education, leadership, and social impact,
                     my work is guided by compassion, commitment to social transformation,
                     protecting the vulnerable, and preserving nature and our shared cultural heritage.
                   </p>
@@ -374,7 +374,7 @@ export default function Home() {
                   <div className="text-3xl">🎓</div>
                   <div>
                     <p className="font-semibold text-orange-300">Fulbright Scholar</p>
-                    <p className="text-sm text-gray-300">28 years in education & social impact</p>
+                    <p className="text-sm text-gray-300">Over two decades in education & social impact</p>
                   </div>
                 </div>
                 
@@ -728,7 +728,7 @@ export default function Home() {
           </div>
           
           <div className="border-t border-gray-800 pt-8 fade-in opacity-0 translate-y-8">
-            <p className="text-gray-500">&copy; {new Date().getFullYear()} LMJ India Foundation. All rights reserved. | Empowering Communities Across India</p>
+            <p className="text-gray-500">&copy;LMJ India Foundation. All rights reserved. | Empowering Communities Across India</p>
           </div>
         </div>
       </footer>
