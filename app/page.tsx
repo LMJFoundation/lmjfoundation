@@ -146,6 +146,8 @@ export default function Home() {
             <div className="hidden md:flex items-center space-x-8">
               <button onClick={() => scrollToSection('about')} className="text-gray-700 hover:text-purple-600 transition">About</button>
               <button onClick={() => scrollToSection('programs')} className="text-gray-700 hover:text-purple-600 transition">Programs</button>
+              <button onClick={() => scrollToSection('founder')} className="text-gray-700 hover:text-purple-600 transition">Founder</button>
+              <button onClick={() => scrollToSection('patron')} className="text-gray-700 hover:text-purple-600 transition">Patron</button>
               <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-purple-600 transition">Impact</button>
               <button onClick={() => showModal('Donate', 'Your donation helps empower communities across India. Every contribution makes a difference.', 'donate')} className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition">Donate</button>
             </div>
@@ -222,10 +224,10 @@ export default function Home() {
                 communities.
               </p>
               <p>
-  Founded in honor of <strong>Lakshmishwar Jha</strong> and <strong>Manjula Jha</strong>- the founder's parents whose lives embodied
-  compassion and service-LMJ draws inspiration from their values to
-  guide every aspect of its work.
-</p>
+                Founded in honor of <strong>Lakshmishwar Jha</strong> and <strong>Manjula Jha</strong> - the founder's parents whose lives embodied
+                compassion and service-LMJ draws inspiration from their values to
+                guide every aspect of its work.
+              </p>
               <p>
                 We believe true social transformation begins with empowerment:
                 equipping individuals with the tools, resources, and knowledge to
@@ -307,6 +309,175 @@ export default function Home() {
               >
                 Explore Our Journey →
               </motion.button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section id="founder" className="py-20 bg-gradient-to-br from-gray-900 to-purple-900 text-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16 fade-in opacity-0 translate-y-8">
+            <h2 className="font-playfair text-4xl lg:text-5xl font-bold mb-4">Our Founder</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-yellow-500 mx-auto"></div>
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="fade-in opacity-0 translate-y-8"
+            >
+              <div className="flex justify-center mb-8">
+                <div className="w-64 h-64 bg-gradient-to-br from-purple-500 to-orange-500 rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-2xl">
+                  <img 
+                    src="/founder.jpg" 
+                    alt="Vandana Jha - Founder" 
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement!.innerHTML = '<span class="text-white text-4xl font-bold">VJ</span>';
+                    }}
+                  />
+                </div>
+              </div>
+              
+              <h3 className="text-3xl font-bold mb-2 text-center">Vandana Jha</h3>
+              <p className="text-xl text-orange-300 text-center mb-8">Founder, LMJ India Foundation</p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="fade-in opacity-0 translate-y-8"
+            >
+              <div className="space-y-6 text-lg leading-relaxed">
+                <p className="text-xl italic text-orange-300 border-l-4 border-orange-400 pl-6 py-2">
+                  "It gives me immense joy to welcome you to LMJ India Foundation — an endeavor born out of love, gratitude, and a deep commitment to uplift those who deserve equal opportunity and wellbeing."
+                </p>
+                
+                <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm">
+                  <p className="mb-4">
+                    <strong className="text-orange-300">A Fulbright scholar and lifelong torchbearer of learning,</strong>
+                  </p>
+                  <p className="mb-4">
+                    With 28 years devoted to education, leadership, and social impact,
+                    my work is guided by compassion, commitment to social transformation,
+                    protecting the vulnerable, and preserving nature and our shared cultural heritage.
+                  </p>
+                  <p>
+                    Rooted in the values my parents instilled — compassion, service, and belief in the dignity of every life — LMJ is dedicated to empowering, educating, and enabling communities across India.
+                  </p>
+                </div>
+                
+                <div className="flex items-center space-x-4 bg-white/5 rounded-xl p-4">
+                  <div className="text-3xl">🎓</div>
+                  <div>
+                    <p className="font-semibold text-orange-300">Fulbright Scholar</p>
+                    <p className="text-sm text-gray-300">28 years in education & social impact</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center space-x-4 bg-white/5 rounded-xl p-4">
+                  <div className="text-3xl">❤️</div>
+                  <div>
+                    <p className="font-semibold text-orange-300">Core Values</p>
+                    <p className="text-sm text-gray-300">Compassion, Social Transformation, Cultural Preservation</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section id="patron" className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16 fade-in opacity-0 translate-y-8">
+            <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Our Patron</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-green-500 mx-auto"></div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-4">Guiding our mission with wisdom and experience</p>
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="fade-in opacity-0 translate-y-8"
+            >
+              <div className="flex justify-center mb-8">
+                <div className="w-72 h-72 bg-gradient-to-br from-blue-500 to-green-500 rounded-full flex items-center justify-center overflow-hidden border-4 border-gray-100 shadow-2xl">
+                  <img 
+                    src="/patron.jpg" 
+                    alt="Vidyanidhi Dalmia - Patron" 
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement!.innerHTML = '<span class="text-white text-4xl font-bold">VD</span>';
+                    }}
+                  />
+                </div>
+              </div>
+              
+              <h3 className="text-3xl font-bold text-gray-900 mb-2 text-center">Vidyanidhi Dalmia</h3>
+              <p className="text-xl text-purple-600 text-center mb-4">(aka VN Dalmia)</p>
+              <p className="text-lg text-gray-600 text-center">Chairman, Dalmia Continental | Knight Commander</p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="fade-in opacity-0 translate-y-8"
+            >
+              <div className="space-y-6 text-gray-700 leading-relaxed">
+                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 border border-gray-200 shadow-lg">
+                  <p className="mb-4">
+                    <strong>Vidyanidhi Dalmia (aka VN Dalmia)</strong> is the Chairman of Dalmia Continental (DC) and formerly led other Dalmia companies in cement, biscuits, tourism, and more.
+                  </p>
+                  <p className="mb-4">
+                    At DC, he introduced olive oil to India and later divested its leading brands, Leonardo (to Cargill in 2014) and Hudson (to Bunge in 2018).
+                  </p>
+                  <p className="mb-4">
+                    He currently serves as an Independent Director and Advisor to several firms. A recipient of an Italian knighthood in the rank of Knight Commander, VN holds an MBA from the University of Virginia's Darden School of Business, where he also served on its Board of Trustees.
+                  </p>
+                  <p>
+                    He is the Founder President of the Indian Olive Association and passionate about music, art, photography, reading and fitness.
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-gray-50 rounded-xl p-4 text-center">
+                    <div className="text-2xl mb-2">👑</div>
+                    <p className="font-semibold text-gray-900">Knight Commander</p>
+                    <p className="text-sm text-gray-600">Italian Knighthood</p>
+                  </div>
+                  
+                  <div className="bg-gray-50 rounded-xl p-4 text-center">
+                    <div className="text-2xl mb-2">🎓</div>
+                    <p className="font-semibold text-gray-900">Darden MBA</p>
+                    <p className="text-sm text-gray-600">University of Virginia</p>
+                  </div>
+                  
+                  <div className="bg-gray-50 rounded-xl p-4 text-center">
+                    <div className="text-2xl mb-2">🏢</div>
+                    <p className="font-semibold text-gray-900">Chairman</p>
+                    <p className="text-sm text-gray-600">Dalmia Continental</p>
+                  </div>
+                  
+                  <div className="bg-gray-50 rounded-xl p-4 text-center">
+                    <div className="text-2xl mb-2">🎨</div>
+                    <p className="font-semibold text-gray-900">Passionate About</p>
+                    <p className="text-sm text-gray-600">Arts, Music, Photography</p>
+                  </div>
+                </div>
+                
+                <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl p-4">
+                  <p className="text-center font-semibold">
+                    "We are honored to have VN Dalmia as our Patron, guiding our foundation with his visionary leadership and extensive business experience."
+                  </p>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -413,56 +584,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-br from-gray-900 to-purple-900 text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="fade-in opacity-0 translate-y-8"
-          >
-            <h2 className="font-playfair text-4xl lg:text-5xl font-bold mb-8">Founder's Message</h2>
-            
-            <div className="flex justify-center mb-8">
-              <div className="w-48 h-48 bg-white rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-2xl">
-                  <img 
-                  src="/founder.jpg" 
-                  alt="Vandana Jha - Founder" 
-                  className="w-full h-full object-contain"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.parentElement!.innerHTML = '<span class="text-white text-4xl font-bold">VJ</span>';
-                  }}
-                />
-              </div>
-            </div>
-            
-            <blockquote className="text-2xl italic text-orange-300 leading-relaxed mb-8 border-l-4 border-orange-400 pl-6 mx-auto max-w-3xl">
-              &ldquo;It gives me immense joy to welcome you to LMJ India Foundation — an endeavor born out of love, gratitude, and a deep commitment to uplift those who deserve equal opportunity and wellbeing.&rdquo;
-            </blockquote>
-
-            <div className="space-y-4 text-lg text-gray-300 leading-relaxed mb-8 max-w-3xl mx-auto">
-              <p>
-                Rooted in the values my parents instilled — compassion, service, and belief in the dignity of every life — LMJ is dedicated to empowering, educating, and enabling communities across India.
-              </p>
-              <p>
-                I invite you to join hands with us — your belief and support will help shape a future where opportunity, health, and hope are realities for all.
-              </p>
-            </div>
-
-            <p className="text-xl font-semibold text-orange-300 mb-8">— Vandana Jha</p>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              onClick={() => scrollToSection('contact')}
-              className="bg-orange-500 text-white font-semibold px-8 py-4 rounded-full hover:bg-orange-600 transition hover-lift"
-            >
-              Connect With Us
-            </motion.button>
-          </motion.div>
-        </div>
-      </section>
-
-      <section id="contact" className="py-20 bg-gradient-to-br from-green-600 to-green-700 text-white">
+      <section className="py-20 bg-gradient-to-br from-green-600 to-green-700 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -506,7 +628,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      <section id="contact" className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="fade-in opacity-0 translate-y-8">
@@ -579,14 +701,14 @@ export default function Home() {
       <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <div className="flex items-center justify-center mb-8 fade-in opacity-0 translate-y-8">
-            <div className="w-18 h-18 rounded-lg flex items-center justify-center mr-4 animate-float overflow-hidden">
+            <div className="w-16 h-16 rounded-lg flex items-center justify-center mr-4 animate-float overflow-hidden">
               <img 
                 src="/logo.png" 
                 alt="LMJ India Foundation Logo" 
                 className="w-full h-full object-contain"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
-                  e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-lg">LMJ</span>';
+                  e.currentTarget.parentElement!.innerHTML = '<span class="text-white font-bold text-sm">LMJ</span>';
                 }}
               />
             </div>
@@ -597,8 +719,16 @@ export default function Home() {
             Together, We Can Shape a Sustainable Future. Every contribution helps transform lives and preserve our shared heritage.
           </p>
           
+          <div className="flex flex-wrap justify-center gap-8 mb-8 fade-in opacity-0 translate-y-8">
+            <button onClick={() => scrollToSection('about')} className="text-gray-400 hover:text-white transition">About</button>
+            <button onClick={() => scrollToSection('founder')} className="text-gray-400 hover:text-white transition">Founder</button>
+            <button onClick={() => scrollToSection('patron')} className="text-gray-400 hover:text-white transition">Patron</button>
+            <button onClick={() => scrollToSection('programs')} className="text-gray-400 hover:text-white transition">Programs</button>
+            <button onClick={() => scrollToSection('contact')} className="text-gray-400 hover:text-white transition">Contact</button>
+          </div>
+          
           <div className="border-t border-gray-800 pt-8 fade-in opacity-0 translate-y-8">
-            <p className="text-gray-500">&copy; LMJ India Foundation. All rights reserved. | Empowering Communities Across India</p>
+            <p className="text-gray-500">&copy; {new Date().getFullYear()} LMJ India Foundation. All rights reserved. | Empowering Communities Across India</p>
           </div>
         </div>
       </footer>
@@ -733,7 +863,7 @@ export default function Home() {
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap');
         
-                .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
         
         .hover-lift { transition: all 0.3s ease; }
