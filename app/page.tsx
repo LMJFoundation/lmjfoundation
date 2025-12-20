@@ -124,8 +124,12 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  // Split members into two categories
   const members = [
-    "Kalyani",
+    "Kalyani"
+  ];
+
+  const youngChangeMakers = [
     "Srishti Pandey",
     "Ashutosh Jha",
     "Sara Siddiqui",
@@ -491,19 +495,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* UPDATED MEMBERS SECTION */}
+      {/* UPDATED MEMBERS SECTION - SPLIT INTO TWO CATEGORIES */}
       <section id="members" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="max-w-6xl mx-auto px-6">
+          {/* SECTION 1: MEMBERS */}
           <div className="text-center mb-16 fade-in opacity-0 translate-y-8">
             <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Our Members</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-rose-500 mx-auto"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-orange-500 mx-auto"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
               Our members are committed changemakers who actively support and guide LMJ India Foundation's initiatives. 
               Together, we collaborate to create sustainable impact in communities across India.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {members.map((member, index) => (
               <motion.div
                 key={member}
@@ -520,6 +525,41 @@ export default function Home() {
                   <div className="flex items-center justify-center space-x-2 text-gray-600">
                     <span>🌟</span>
                     <span className="text-sm">Active Member</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* SECTION 2: YOUNG CHANGEMAKERS */}
+          <div className="text-center mb-16 fade-in opacity-0 translate-y-8">
+            <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Our Young ChangeMakers</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-rose-500 mx-auto"></div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
+              Our Young ChangeMakers are passionate and socially conscious individuals who actively support and strengthen 
+              the initiatives of LMJ India Foundation. Through their energy, ideas, and commitment, they contribute to 
+              meaningful action on the ground while developing leadership and a sense of responsibility. Working collaboratively, 
+              our Young ChangeMakers help drive sustainable impact, empower communities, and support inclusive development across India.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {youngChangeMakers.map((changeMaker, index) => (
+              <motion.div
+                key={changeMaker}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="fade-in opacity-0 translate-y-8"
+              >
+                <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 shadow-md hover-lift border border-amber-100 text-center group h-full flex flex-col items-center justify-center min-h-[120px]">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition">
+                    {changeMaker}
+                  </h3>
+                  <div className="flex items-center justify-center space-x-2 text-amber-600">
+                    <span>✨</span>
+                    <span className="text-sm font-medium">Young ChangeMaker</span>
                   </div>
                 </div>
               </motion.div>
