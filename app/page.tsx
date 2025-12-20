@@ -124,6 +124,15 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  const members = [
+    "Kalyani",
+    "Srishti Pandey",
+    "Ashutosh Jha",
+    "Sara Siddiqui",
+    "Mohammad Arman",
+    "Ashish Gangwal"
+  ];
+
   return (
     <div className="font-inter bg-white text-gray-800">
       <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
@@ -148,6 +157,7 @@ export default function Home() {
               <button onClick={() => scrollToSection('programs')} className="text-gray-700 hover:text-purple-600 transition">Programs</button>
               <button onClick={() => scrollToSection('founder')} className="text-gray-700 hover:text-purple-600 transition">Founder</button>
               <button onClick={() => scrollToSection('patrons')} className="text-gray-700 hover:text-purple-600 transition">Patrons</button>
+              <button onClick={() => scrollToSection('members')} className="text-gray-700 hover:text-purple-600 transition">Members</button>
               <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-purple-600 transition">Impact</button>
               <button onClick={() => showModal('Donate', 'Your donation helps empower communities across India. Every contribution makes a difference.', 'donate')} className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition">Donate</button>
             </div>
@@ -328,7 +338,7 @@ export default function Home() {
               className="fade-in opacity-0 translate-y-8"
             >
               <div className="flex justify-center mb-8">
-                <div className="w-64 h-64 bg-gradient-to-br from-purple-500 to-orange-500 rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-2xl">
+                <div className="w-64 h-64 bg-white rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-2xl">
                   <img 
                     src="/founder.jpg" 
                     alt="Vandana Jha - Founder" 
@@ -358,7 +368,7 @@ export default function Home() {
                 
                 <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm">
                   <p className="mb-4">
-                    <strong className="text-orange-300">A Fulbright scholar and lifelong torchbearer of learning,</strong>
+                    <strong className="text-orange-300">A Fulbright scholar and lifelong torchbearer of learning</strong>
                   </p>
                   <p className="mb-4">
                     With over two decades devoted to education, leadership, and social impact,
@@ -374,7 +384,7 @@ export default function Home() {
                   <div className="text-3xl">🎓</div>
                   <div>
                     <p className="font-semibold text-orange-300">Fulbright Scholar</p>
-                    <p className="text-sm text-gray-300">over two decades in education & social impact</p>
+                    <p className="text-sm text-gray-300">Over two decades in education & social impact</p>
                   </div>
                 </div>
                 
@@ -481,6 +491,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* UPDATED MEMBERS SECTION */}
+      <section id="members" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16 fade-in opacity-0 translate-y-8">
+            <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Our Members</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-rose-500 mx-auto"></div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
+              Our members are committed changemakers who actively support and guide LMJ India Foundation's initiatives. 
+              Together, we collaborate to create sustainable impact in communities across India.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {members.map((member, index) => (
+              <motion.div
+                key={member}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="fade-in opacity-0 translate-y-8"
+              >
+                <div className="bg-white rounded-2xl p-6 shadow-md hover-lift border border-gray-100 text-center group h-full flex flex-col items-center justify-center min-h-[120px]">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition">
+                    {member}
+                  </h3>
+                  <div className="flex items-center justify-center space-x-2 text-gray-600">
+                    <span>🌟</span>
+                    <span className="text-sm">Active Member</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="programs" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 fade-in opacity-0 translate-y-8">
@@ -559,7 +606,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: "🤝", title: "Grassroots Engagement", description: "Listening and acting with local communities." },
+              { icon: "🤝", title: "Civic Engagement", description: "Listening and acting with local communities." },
               { icon: "🚀", title: "Capacity Building", description: "Investing in skills, leadership, and confidence." },
               { icon: "🌱", title: "Sustainability", description: "Environmentally sound, economically viable solutions." },
               { icon: "⚖️", title: "Equity & Inclusion", description: "Prioritizing marginalized groups, women, and youth." }
@@ -571,10 +618,10 @@ export default function Home() {
                 transition={{ delay: index * 0.1 }}
                 className="text-center fade-in opacity-0 translate-y-8"
               >
-                <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm hover-lift">
+                <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm hover-lift h-full min-h-[180px] flex flex-col items-center justify-center">
                   <div className="text-3xl mb-4">{item.icon}</div>
-                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-blue-200 text-sm">{item.description}</p>
+                  <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                  <p className="text-blue-200 text-sm px-2">{item.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -721,6 +768,7 @@ export default function Home() {
             <button onClick={() => scrollToSection('about')} className="text-gray-400 hover:text-white transition">About</button>
             <button onClick={() => scrollToSection('founder')} className="text-gray-400 hover:text-white transition">Founder</button>
             <button onClick={() => scrollToSection('patrons')} className="text-gray-400 hover:text-white transition">Patrons</button>
+            <button onClick={() => scrollToSection('members')} className="text-gray-400 hover:text-white transition">Members</button>
             <button onClick={() => scrollToSection('programs')} className="text-gray-400 hover:text-white transition">Programs</button>
             <button onClick={() => scrollToSection('contact')} className="text-gray-400 hover:text-white transition">Contact</button>
           </div>
