@@ -129,9 +129,10 @@ export default function Home() {
     "Kalyani"
   ];
 
+  // Young ChangeMakers - Ashutosh Jha first, then others
   const youngChangeMakers = [
-    "Srishti Pandey",
     "Ashutosh Jha",
+    "Srishti Pandey",
     "Sara Siddiqui",
     "Mohammad Arman",
     "Ashish Gangwal"
@@ -162,7 +163,7 @@ export default function Home() {
               <button onClick={() => scrollToSection('founder')} className="text-gray-700 hover:text-purple-600 transition">Founder</button>
               <button onClick={() => scrollToSection('patrons')} className="text-gray-700 hover:text-purple-600 transition">Patrons</button>
               <button onClick={() => scrollToSection('members')} className="text-gray-700 hover:text-purple-600 transition">Members</button>
-              <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-purple-600 transition">Impact</button>
+              <button onClick={() => router.push('/gallery')} className="text-gray-700 hover:text-purple-600 transition">Gallery</button>
               <button onClick={() => showModal('Donate', 'Your donation helps empower communities across India. Every contribution makes a difference.', 'donate')} className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition">Donate</button>
             </div>
           </div>
@@ -212,7 +213,7 @@ export default function Home() {
             >
               <div className="bg-white/10 rounded-3xl p-2 backdrop-blur-sm">
                 <img 
-                  src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                  src="/hero-image.jpg" 
                   alt="Community Empowerment" 
                   className="rounded-2xl w-full h-96 object-cover"
                 />
@@ -372,7 +373,7 @@ export default function Home() {
                 
                 <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm">
                   <p className="mb-4">
-                    <strong className="text-orange-300">A Fulbright scholar and lifelong torchbearer of learning</strong>
+                    <strong className="text-orange-300">🎓 A Fulbright scholar and lifelong torchbearer of learning 🎯</strong>
                   </p>
                   <p className="mb-4">
                     With over two decades devoted to education, leadership, and social impact,
@@ -532,7 +533,7 @@ export default function Home() {
           </div>
 
           {/* SECTION 2: YOUNG CHANGEMAKERS */}
-          <div className="text-center mb-16 fade-in opacity-0 translate-y-8">
+          <div className="text-center mb-12 fade-in opacity-0 translate-y-8">
             <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Our Young ChangeMakers</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-rose-500 mx-auto"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
@@ -543,6 +544,7 @@ export default function Home() {
             </p>
           </div>
 
+          {/* All Young ChangeMakers in a single grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {youngChangeMakers.map((changeMaker, index) => (
               <motion.div
@@ -810,7 +812,7 @@ export default function Home() {
             <button onClick={() => scrollToSection('patrons')} className="text-gray-400 hover:text-white transition">Patrons</button>
             <button onClick={() => scrollToSection('members')} className="text-gray-400 hover:text-white transition">Members</button>
             <button onClick={() => scrollToSection('programs')} className="text-gray-400 hover:text-white transition">Programs</button>
-            <button onClick={() => scrollToSection('contact')} className="text-gray-400 hover:text-white transition">Contact</button>
+            <button onClick={() => router.push('/gallery')} className="text-gray-400 hover:text-white transition">Gallery</button>
           </div>
           
           <div className="border-t border-gray-800 pt-8 fade-in opacity-0 translate-y-8">
