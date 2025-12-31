@@ -135,7 +135,9 @@ export default function Home() {
     "Srishti Pandey",
     "Sara Siddiqui",
     "Mohammad Arman",
-    "Ashish Gangwal"
+    "Ashish Gangwal",
+    "Chandni",
+    "Rohit Rathore"
   ];
 
   return (
@@ -537,10 +539,7 @@ export default function Home() {
             <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Our Young ChangeMakers</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-rose-500 mx-auto"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
-              Our Young ChangeMakers are passionate and socially conscious individuals who actively support and strengthen 
-              the initiatives of LMJ India Foundation. Through their energy, ideas, and commitment, they contribute to 
-              meaningful action on the ground while developing leadership and a sense of responsibility. Working collaboratively, 
-              our Young ChangeMakers help drive sustainable impact, empower communities, and support inclusive development across India.
+              Our Young ChangeMakers are passionate, socially conscious individuals who support LMJ India Foundation’s initiatives through collaboration, leadership, and action—driving sustainable impact, empowering communities, and fostering inclusive development across India.
             </p>
           </div>
 
