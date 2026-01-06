@@ -34,8 +34,12 @@ export default function Home() {
   };
 
   const handleDonate = () => {
-    window.open('https://your-payment-link.com', '_blank');
-    closeModal();
+    setModalContent({
+      title: 'Support Our Mission',
+      text: 'Thank you for choosing to support LMJ India Foundation. You can make a direct transfer using the details below. Please use your name as a reference for tracking.',
+      type: 'donate'
+    });
+    setIsModalOpen(true);
   };
 
   const handleVolunteerApply = () => {
@@ -823,22 +827,99 @@ export default function Home() {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={closeModal}>
           <div className="bg-white rounded-2xl p-8 max-w-md w-full" onClick={(e) => e.stopPropagation()}>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">{modalContent.title}</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">{modalContent.title}</h3>
             <p className="text-gray-600 mb-6">{modalContent.text}</p>
-            <div className="flex gap-4">
-              <button onClick={closeModal} className="flex-1 bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600 transition">Close</button>
-              {modalContent.type === 'donate' && (
-                <button onClick={handleDonate} className="flex-1 bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition">Donate Now</button>
-              )}
-              {modalContent.type === 'volunteer' && (
-                <button onClick={handleVolunteerApply} className="flex-1 bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition">Apply Now</button>
-              )}
-              {modalContent.type === 'member' && (
-                <button onClick={handleMemberApply} className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-600 text-white py-3 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition">Apply for Membership</button>
-              )}
-              {modalContent.type === 'info' && (
-                <button onClick={closeModal} className="flex-1 bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition">Learn More</button>
-              )}
+
+            {/* Payment Details Section (only for 'donate' type) */}
+            {modalContent.type === 'donate' && (
+              <div className="space-y-6 mb-8">
+                {/* UPI ID Section */}
+                <div className="border border-gray-200 rounded-xl p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h4 className="font-bold text-lg text-gray-900">UPI Payment</h4>
+                      <p className="text-gray-600 text-sm">Use this ID in any UPI app</p>
+                    </div>
+                    <div className="text-3xl">📱</div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="text-sm text-gray-500">UPI ID</p>
+                        <p className="font-mono font-bold text-lg text-gray-900">lmjindia@ybl</p>
+                      </div>
+                      <button 
+                        onClick={() => {
+                          navigator.clipboard.writeText('lmjindia@ybl');
+                          alert('UPI ID copied to clipboard!');
+                        }}
+                        className="bg-purple-100 text-purple-700 px-4 py-2 rounded-lg hover:bg-purple-200 transition text-sm"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bank Details Section */}
+                <div className="border border-gray-200 rounded-xl p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h4 className="font-bold text-lg text-gray-900">Bank Transfer</h4>
+                      <p className="text-gray-600 text-sm">NEFT / RTGS / IMPS</p>
+                    </div>
+                    <div className="text-3xl">🏦</div>
+                  </div>
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <p className="text-gray-500">Account Name</p>
+                      <p className="font-semibold text-gray-900">Lakshmishwar Manjula Jha Foundation</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">Account Number</p>
+                      <p className="font-mono font-bold text-gray-900">50200108839761</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">IFSC Code</p>
+                      <p className="font-mono font-bold text-gray-900">HDFC0004113</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">Bank & Branch</p>
+                      <p className="font-semibold text-gray-900">HDFC Bank, Defence Colony, New Delhi</p>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => {
+                      const details = `Account Name: LMJ INDIA FOUNDATION\nAccount No: 1234567890\nIFSC: ICIC0001234\nBank: ICICI Bank, Defence Colony, New Delhi`;
+                      navigator.clipboard.writeText(details);
+                      alert('Bank details copied to clipboard!');
+                    }}
+                    className="w-full mt-4 bg-gray-100 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
+                  >
+                    Copy All Bank Details
+                  </button>
+                </div>
+
+                {/* Security Message */}
+                <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r">
+                  <p className="text-sm text-gray-800 font-semibold mb-1">⚠️ Very Important Security Check</p>
+                  <p className="text-xs text-gray-700">
+                    After entering the UPI ID or bank details, please verify that the payee name is <strong className="text-gray-900">LAKHMISHWAR MANJULA JHA FOUNDATION</strong> before confirming payment.
+                    <br />
+                    <strong>WE WILL NEVER ASK</strong> for your UPI PIN, ATM PIN, CVV, or OTP for receiving donations.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Modal action buttons */}
+            <div className="flex gap-4 pt-4 border-t border-gray-200">
+              <button 
+                onClick={closeModal}
+                className="flex-1 bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600 transition"
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
