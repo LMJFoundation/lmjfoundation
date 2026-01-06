@@ -890,7 +890,7 @@ export default function Home() {
                   </div>
                   <button 
                     onClick={() => {
-                      const details = `Account Name: LMJ INDIA FOUNDATION\nAccount No: 1234567890\nIFSC: ICIC0001234\nBank: ICICI Bank, Defence Colony, New Delhi`;
+                      const details = `Account Name: Lakshmishwar Manjula Jha Foundation\nAccount No: 50200108839761\nIFSC: HDFC0004113\nBank: HDFC Bank, Defence Colony, New Delhi`;
                       navigator.clipboard.writeText(details);
                       alert('Bank details copied to clipboard!');
                     }}
