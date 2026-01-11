@@ -56,7 +56,7 @@ export default function Home() {
   const handleDonate = () => {
     setModalContent({
       title: 'Support Our Mission',
-      text: 'Thank you for choosing to support LMJ India Foundation. You can make a direct transfer using the details below. Please use your name as a reference for tracking.',
+      text: 'Thank you for choosing to support LMJ India Foundation.You can make a direct transfer using the details below. Please use your name as a reference for tracking.',
       type: 'donate'
     });
     setIsModalOpen(true);
