@@ -16,6 +16,22 @@ export default function Home() {
     location: '',
     message: ''
   });
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      const userAgent = typeof window.navigator === "undefined" ? "" : navigator.userAgent;
+      const mobile = Boolean(
+        userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i)
+      );
+      setIsMobile(mobile);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -27,10 +43,14 @@ export default function Home() {
   const showModal = (title: string, text: string, type: string = 'info') => {
     setModalContent({ title, text, type });
     setIsModalOpen(true);
+    
+    // Prevent body scrolling when modal is open
+    document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    document.body.style.overflow = 'auto';
   };
 
   const handleDonate = () => {
@@ -40,32 +60,66 @@ export default function Home() {
       type: 'donate'
     });
     setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
   };
 
   const handleVolunteerApply = () => {
-    const messageField = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
-    if (messageField) {
-      messageField.value = "I'm interested in volunteering for LMJ India Foundation. Please let me know about current opportunities.";
-      messageField.focus();
+    // Use requestAnimationFrame for better timing on mobile
+    requestAnimationFrame(() => {
+      // First close the modal
+      closeModal();
       
-      messageField.style.borderColor = '#f97316';
-      messageField.style.boxShadow = '0 0 0 3px rgba(249, 115, 22, 0.1)';
+      // Scroll to contact section
+      scrollToSection('contact');
+      
+      // Small delay to ensure DOM is ready (especially on mobile)
       setTimeout(() => {
-        messageField.style.borderColor = '';
-        messageField.style.boxShadow = '';
-      }, 2000);
-    }
-    
-    closeModal();
+        const messageField = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement;
+        if (messageField) {
+          messageField.value = "I'm interested in volunteering for LMJ India Foundation. Please let me know about current opportunities.";
+          
+          // Focus on mobile needs special handling
+          if (isMobile) {
+            // On mobile, wait a bit before focusing to avoid keyboard issues
+            setTimeout(() => {
+              messageField.focus();
+              // Scroll into view properly on mobile
+              messageField.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center',
+                inline: 'nearest'
+              });
+            }, 300);
+          } else {
+            messageField.focus();
+          }
+          
+          // Visual feedback
+          messageField.style.transition = 'all 0.3s ease';
+          messageField.style.borderColor = '#f97316';
+          messageField.style.boxShadow = '0 0 0 3px rgba(249, 115, 22, 0.1)';
+          
+          setTimeout(() => {
+            messageField.style.borderColor = '';
+            messageField.style.boxShadow = '';
+          }, 2000);
+        } else {
+          // Fallback if message field not found
+          console.log('Message field not found');
+        }
+      }, 500); // Increased delay for mobile
+    });
   };
 
   const handleMemberApply = () => {
     setIsMemberModalOpen(true);
+    document.body.style.overflow = 'hidden';
     closeModal();
   };
 
   const closeMemberModal = () => {
     setIsMemberModalOpen(false);
+    document.body.style.overflow = 'auto';
     setMemberForm({
       name: '',
       email: '',
@@ -108,6 +162,21 @@ export default function Home() {
       }
     } catch (error) {
       alert('There was an error submitting your application. Please try again or contact us directly.');
+    }
+  };
+
+  // Handle mobile-specific member button click
+  const handleBecomeMemberClick = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (isMobile) {
+      // On mobile, open member modal directly
+      setIsMemberModalOpen(true);
+      document.body.style.overflow = 'hidden';
+    } else {
+      // On desktop, show info modal first
+      showModal('Become a Member', 'Join LMJ India Foundation as a member and be part of our growing community of changemakers. Your membership supports our initiatives and gives you exclusive updates.', 'member');
     }
   };
 
@@ -543,7 +612,7 @@ export default function Home() {
             <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Our Young ChangeMakers</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-rose-500 mx-auto"></div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
-              Our Young ChangeMakers are passionate, socially conscious individuals who support LMJ India Foundation’s initiatives through collaboration, leadership, and action—driving sustainable impact, empowering communities, and fostering inclusive development across India.
+              Our Young ChangeMakers are passionate, socially conscious individuals who support LMJ India Foundation's initiatives through collaboration, leadership, and action—driving sustainable impact, empowering communities, and fostering inclusive development across India.
             </p>
           </div>
 
@@ -690,7 +759,11 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => showModal('Donate Now', 'Your donation helps us empower communities across India. Every contribution makes a difference.', 'donate')}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  showModal('Donate Now', 'Your donation helps us empower communities across India. Every contribution makes a difference.', 'donate');
+                }}
                 className="bg-white text-green-700 font-semibold px-8 py-4 rounded-full hover:bg-gray-100 transition hover-lift min-w-[180px]"
               >
                 Donate Now
@@ -699,7 +772,7 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => showModal('Become a Member', 'Join LMJ India Foundation as a member and be part of our growing community of changemakers. Your membership supports our initiatives and gives you exclusive updates.', 'member')}
+                onClick={handleBecomeMemberClick}
                 className="bg-gradient-to-r from-amber-500 to-yellow-600 text-white font-semibold px-8 py-4 rounded-full hover:from-amber-600 hover:to-yellow-700 transition hover-lift min-w-[180px] shadow-lg"
               >
                 Become a Member
@@ -708,7 +781,11 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => showModal('Volunteer', 'Join our team of dedicated volunteers and make a direct impact in communities across India.', 'volunteer')}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  showModal('Volunteer', 'Join our team of dedicated volunteers and make a direct impact in communities across India.', 'volunteer');
+                }}
                 className="bg-orange-500 text-white font-semibold px-8 py-4 rounded-full hover:bg-orange-400 transition hover-lift min-w-[180px]"
               >
                 Volunteer
@@ -760,25 +837,25 @@ export default function Home() {
                   name="name"
                   placeholder="Your Name" 
                   required
-                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-lg"
                 />
                 <input 
                   type="email" 
                   name="email"
                   placeholder="Your Email" 
                   required
-                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-lg"
                 />
                 <textarea 
                   name="message"
                   placeholder="Your Message" 
                   rows={4}
                   required
-                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-lg"
                 ></textarea>
                 <button 
                   type="submit"
-                  className="bg-purple-600 text-white px-8 py-4 rounded-lg hover:bg-purple-700 transition w-full"
+                  className="bg-purple-600 text-white px-8 py-4 rounded-lg hover:bg-purple-700 transition w-full text-lg font-semibold"
                 >
                   Send Message
                 </button>
@@ -825,8 +902,19 @@ export default function Home() {
       </footer>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={closeModal}>
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full" onClick={(e) => e.stopPropagation()}>
+        <div 
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" 
+          onClick={(e) => {
+            // Only close if clicking the backdrop (not modal content)
+            if (e.target === e.currentTarget) {
+              closeModal();
+            }
+          }}
+        >
+          <div 
+            className="bg-white rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto" 
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3 className="text-2xl font-bold text-gray-900 mb-2">{modalContent.title}</h3>
             <p className="text-gray-600 mb-6">{modalContent.text}</p>
 
@@ -914,9 +1002,27 @@ export default function Home() {
 
             {/* Modal action buttons */}
             <div className="flex gap-4 pt-4 border-t border-gray-200">
+              {modalContent.type === 'member' && (
+                <button 
+                  onClick={() => {
+                    handleMemberApply();
+                  }}
+                  className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-600 text-white py-3 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition font-semibold"
+                >
+                  Apply for Membership
+                </button>
+              )}
+              {modalContent.type === 'volunteer' && (
+                <button 
+                  onClick={handleVolunteerApply}
+                  className="flex-1 bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition font-semibold"
+                >
+                  Volunteer Now
+                </button>
+              )}
               <button 
                 onClick={closeModal}
-                className="flex-1 bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600 transition"
+                className={`${modalContent.type === 'member' || modalContent.type === 'volunteer' ? 'flex-1' : 'w-full'} bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600 transition font-semibold`}
               >
                 Close
               </button>
@@ -926,8 +1032,19 @@ export default function Home() {
       )}
 
       {isMemberModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={closeMemberModal}>
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <div 
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" 
+          onClick={(e) => {
+            // Only close if clicking the backdrop (not modal content)
+            if (e.target === e.currentTarget) {
+              closeMemberModal();
+            }
+          }}
+        >
+          <div 
+            className="bg-white rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto" 
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3 className="text-2xl font-bold text-gray-900 mb-2">Become a Member</h3>
             <p className="text-gray-600 mb-6">Join our community of changemakers. Fill out the form below and we'll get back to you soon.</p>
             
@@ -940,7 +1057,7 @@ export default function Home() {
                   value={memberForm.name}
                   onChange={handleMemberFormChange}
                   required
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-lg"
                   placeholder="Enter your full name"
                 />
               </div>
@@ -953,7 +1070,7 @@ export default function Home() {
                   value={memberForm.email}
                   onChange={handleMemberFormChange}
                   required
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-lg"
                   placeholder="Enter your email"
                 />
               </div>
@@ -966,7 +1083,7 @@ export default function Home() {
                   value={memberForm.phone}
                   onChange={handleMemberFormChange}
                   required
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-lg"
                   placeholder="Enter your phone number"
                 />
               </div>
@@ -978,7 +1095,7 @@ export default function Home() {
                   name="profession"
                   value={memberForm.profession}
                   onChange={handleMemberFormChange}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-lg"
                   placeholder="What do you do?"
                 />
               </div>
@@ -990,7 +1107,7 @@ export default function Home() {
                   name="location"
                   value={memberForm.location}
                   onChange={handleMemberFormChange}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-lg"
                   placeholder="Where are you located?"
                 />
               </div>
@@ -1003,7 +1120,7 @@ export default function Home() {
                   onChange={handleMemberFormChange}
                   required
                   rows={4}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-lg"
                   placeholder="Tell us about your motivation to join LMJ India Foundation..."
                 />
               </div>
@@ -1012,13 +1129,13 @@ export default function Home() {
                 <button 
                   type="button"
                   onClick={closeMemberModal}
-                  className="flex-1 bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600 transition"
+                  className="flex-1 bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600 transition font-semibold"
                 >
                   Cancel
                 </button>
                 <button 
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-600 text-white py-3 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition"
+                  className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-600 text-white py-3 rounded-lg hover:from-amber-600 hover:to-yellow-700 transition font-semibold"
                 >
                   Submit Application
                 </button>
@@ -1042,6 +1159,28 @@ export default function Home() {
           50% { transform: translateY(-10px); }
         }
         .animate-float { animation: float 3s ease-in-out infinite; }
+        
+        /* Mobile-specific fixes */
+        @media (max-width: 768px) {
+          button, input, textarea, select {
+            min-height: 44px; /* Minimum touch target size */
+          }
+          
+          input, textarea {
+            font-size: 16px !important; /* Prevents iOS zoom */
+          }
+          
+          .modal-content {
+            max-height: 80vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+          }
+        }
+        
+        /* Prevent blue highlight on tap for mobile */
+        button, a {
+          -webkit-tap-highlight-color: transparent;
+        }
       `}</style>
     </div>
   );
