@@ -197,18 +197,87 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  // Removed members array completely
-
-  // Young ChangeMakers - Ashutosh Jha first, then others
+  // Young ChangeMakers with native places and optional photos
   const youngChangeMakers = [
-    "Ashutosh Jha",
-    "Srishti Pandey",
-    "Sara Siddiqui",
-    "Mohammad Arman",
-    "Ashish Gangwal",
-    "Chandni",
-    "Rohit Rathore"
+    {
+      name: "Kadambari Jha",
+      photo: "/changemakers/kadambari-jha.jpg", // Will fall back to avatar if not available
+      nativePlace: "New Delhi"
+    },
+    {
+      name: "Ashutosh Jha",
+      photo: "/changemakers/ashutosh-jha.jpg",
+      nativePlace: "Bihar"
+    },
+    {
+      name: "Srishti Pandey",
+      photo: "/changemakers/srishti-pandey.jpg",
+      nativePlace: "Ayodhya-Uttar Pradesh"
+    },
+    {
+      name: "Sara Siddiqui",
+      photo: "/changemakers/sara-siddiqui.jpg",
+      nativePlace: "New Delhi"
+    },
+    {
+      name: "Mohammad Arman",
+      photo: "/changemakers/mohammad-arman.jpg",
+      nativePlace: "New Delhi"
+    },
+    {
+      name: "Ashish Gangwal",
+      photo: "/changemakers/ashish-gangwal.jpg",
+      nativePlace: "New Delhi"
+    },
+    {
+      name: "Chandni",
+      photo: "/changemakers/chandni.jpg",
+      nativePlace: "Bihar"
+    },
+    {
+      name: "Rohit Rathore",
+      photo: "/changemakers/rohit-rathore.jpg",
+      nativePlace: "New Delhi"
+    },
+    {
+      name: "Riya",
+      photo: "/changemakers/riya.jpg",
+      nativePlace: "Uttarakhand"
+    }
   ];
+
+  // Function to get initials from name (for WhatsApp-style avatar)
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(part => part[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
+  };
+
+  // Function to generate random color for avatar
+  const getAvatarColor = (name: string) => {
+    const colors = [
+      'from-purple-500 to-purple-600',
+      'from-blue-500 to-blue-600',
+      'from-green-500 to-green-600',
+      'from-amber-500 to-amber-600',
+      'from-rose-500 to-rose-600',
+      'from-indigo-500 to-indigo-600',
+      'from-teal-500 to-teal-600',
+      'from-orange-500 to-orange-600',
+      'from-pink-500 to-pink-600'
+    ];
+    
+    // Simple hash for consistent color per name
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % colors.length;
+    return colors[index];
+  };
 
   return (
     <div className="font-inter bg-white text-gray-800">
@@ -569,36 +638,64 @@ export default function Home() {
         </div>
       </section>
 
-      {/* YOUNG CHANGEMAKERS SECTION ONLY */}
+      {/* SIMPLIFIED YOUNG CHANGEMAKERS SECTION */}
       <section id="members" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
         <div className="max-w-6xl mx-auto px-6">
           {/* SECTION: YOUNG CHANGEMAKERS */}
-          <div className="text-center mb-16 fade-in opacity-0 translate-y-8">
+          <div className="text-center mb-12 fade-in opacity-0 translate-y-8">
             <h2 className="font-playfair text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Our Young ChangeMakers</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-rose-500 mx-auto"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
-              Our Young ChangeMakers are passionate, socially conscious individuals who support LMJ India Foundation's initiatives through collaboration, leadership, and action—driving sustainable impact, empowering communities, and fostering inclusive development across India.
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto mt-4">
+              Passionate individuals driving change across India
             </p>
           </div>
 
-          {/* All Young ChangeMakers in a single grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* All Young ChangeMakers in a simple grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {youngChangeMakers.map((changeMaker, index) => (
               <motion.div
-                key={changeMaker}
-                initial={{ opacity: 0, y: 30 }}
+                key={changeMaker.name}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
+                transition={{ delay: index * 0.05 }}
+                whileHover={{ y: -3 }}
                 className="fade-in opacity-0 translate-y-8"
               >
-                <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 shadow-md hover-lift border border-amber-100 text-center group h-full flex flex-col items-center justify-center min-h-[120px]">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition">
-                    {changeMaker}
-                  </h3>
-                  <div className="flex items-center justify-center space-x-2 text-amber-600">
-                    <span>✨</span>
-                    <span className="text-sm font-medium">Young ChangeMaker</span>
+                <div className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+                  <div className="flex items-center space-x-4">
+                    {/* WhatsApp-style Avatar */}
+                    <div className={`w-14 h-14 rounded-full bg-gradient-to-r ${getAvatarColor(changeMaker.name)} flex items-center justify-center flex-shrink-0`}>
+                      {/* Try to load photo, fall back to initials */}
+                      <div className="relative w-full h-full rounded-full overflow-hidden">
+                        <img
+                          src={changeMaker.photo}
+                          alt={changeMaker.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            // Hide the image and show initials instead
+                            e.currentTarget.style.display = 'none';
+                            const parent = e.currentTarget.parentElement;
+                            if (parent) {
+                              parent.innerHTML = `<span class="text-white font-bold text-lg">${getInitials(changeMaker.name)}</span>`;
+                              parent.classList.add('flex', 'items-center', 'justify-center');
+                            }
+                          }}
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-gray-900 truncate">{changeMaker.name}</h3>
+                      <div className="flex items-center text-sm text-gray-600 mt-1">
+                        <span className="text-amber-500 mr-1">📍</span>
+                        <span className="truncate">{changeMaker.nativePlace}</span>
+                      </div>
+                      <div className="mt-1">
+                        <span className="inline-block bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-full">
+                          Young ChangeMaker
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
