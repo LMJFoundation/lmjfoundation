@@ -871,17 +871,10 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <span className="text-2xl">📞</span>
-                  <div>
-                    <p className="font-semibold">Phone</p>
-                    <p>+91-9999106050</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-4">
                   <span className="text-2xl">📍</span>
                   <div>
                     <p className="font-semibold">Address</p>
-                    <p>LMJ India Foundation<br />A 120 Defence Colony<br />New Delhi, India 110024</p>
+                    <p>LMJ India Foundation<br />Defence Colony<br />New Delhi, India 110024</p>
                   </div>
                 </div>
               </div>
@@ -1012,7 +1005,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Bank Details Section */}
+                                {/* Bank Transfer Section - Clean Version */}
                 <div className="border border-gray-200 rounded-xl p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div>
@@ -1021,36 +1014,29 @@ export default function Home() {
                     </div>
                     <div className="text-3xl">🏦</div>
                   </div>
-                  <div className="space-y-3 text-sm">
-                    <div>
-                      <p className="text-gray-500">Account Name</p>
-                      <p className="font-semibold text-gray-900">Lakshmishwar Manjula Jha Foundation</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500">Account Number</p>
-                      <p className="font-mono font-bold text-gray-900">50200108839761</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500">IFSC Code</p>
-                      <p className="font-mono font-bold text-gray-900">HDFC0004113</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500">Bank & Branch</p>
-                      <p className="font-semibold text-gray-900">HDFC Bank, Defence Colony, New Delhi</p>
-                    </div>
+                  
+                  {/* Account Name - Safe to display */}
+                  <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-gray-500">Account Name</p>
+                    <p className="font-semibold text-gray-900">Lakshmishwar Manjula Jha Foundation</p>
                   </div>
-                  <button 
-                    onClick={() => {
-                      const details = `Account Name: Lakshmishwar Manjula Jha Foundation\nAccount No: 50200108839761\nIFSC: HDFC0004113\nBank: HDFC Bank, Defence Colony, New Delhi`;
-                      navigator.clipboard.writeText(details);
-                      alert('Bank details copied to clipboard!');
-                    }}
-                    className="w-full mt-4 bg-gray-100 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
-                  >
-                    Copy All Bank Details
-                  </button>
+                  
+                  {/* Request bank details via email */}
+                  <div className="bg-blue-50 rounded-lg p-4">
+                    <p className="text-sm text-gray-700 mb-3">
+                      📌 For bank transfer details, please request them via email.
+                    </p>
+                    <button 
+                      onClick={() => {
+                        window.location.href = 'mailto:vandana.jha@lmjindia.com?subject=Request for Bank Transfer Details';
+                      }}
+                      className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+                    >
+                      Request Bank Details
+                    </button>
+                  </div>
                 </div>
-
+                
                 {/* Security Message */}
                 <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r">
                   <p className="text-sm text-gray-800 font-semibold mb-1">⚠️ Very Important Security Check</p>
