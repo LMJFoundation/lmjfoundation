@@ -243,6 +243,21 @@ export default function Home() {
       name: "Riya",
       photo: "/changemakers/riya.jpg",
       nativePlace: "Uttarakhand"
+    },
+        {
+      name: "Jai Kumar",
+      photo: "/changemakers/jai-kumar.jpg",
+      nativePlace: "New Delhi"
+    },
+    {
+      name: "Urvashi",
+      photo: "/changemakers/urvashi.jpg",
+      nativePlace: "New Delhi"
+    },
+    {
+      name: "Ajay Kumar Saradhana",
+      photo: "/changemakers/ajay-kumar-saradhana.jpg",
+      nativePlace: "Rajasthan"
     }
   ];
 
